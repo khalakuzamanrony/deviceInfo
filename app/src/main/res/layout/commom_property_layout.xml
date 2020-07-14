@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:padding="3dp">
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/common_title"
@@ -21,7 +21,9 @@
             android:layout_weight="1"
             android:text="Title"
             android:textAlignment="textStart"
-            android:textSize="16sp" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/common_description"
@@ -32,7 +34,8 @@
             android:layout_weight="1"
             android:text="Description"
             android:textAlignment="textStart"
-            android:textSize="16sp" />
+            android:textColor="@color/secondColor"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <View

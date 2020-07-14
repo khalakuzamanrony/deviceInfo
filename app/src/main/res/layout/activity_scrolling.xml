@@ -33,16 +33,17 @@
 
                 <ImageView
                     android:id="@+id/device_icon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="25dp"
-                    android:src="@drawable/three"
+                    android:src="@drawable/marsmellow"
                     app:layout_collapseMode="parallax" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:orientation="vertical">
 
                     <TextView
@@ -50,6 +51,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Xiaomi Pocofone f1"
+                        android:textColor="@android:color/white"
                         android:textSize="25sp"
                         android:textStyle="bold" />
 
@@ -58,6 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10 Q"
+                        android:textColor="@android:color/white"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -74,5 +77,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_scrolling" />
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

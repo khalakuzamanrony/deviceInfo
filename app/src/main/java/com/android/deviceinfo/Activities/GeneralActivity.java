@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.deviceinfo.Adapter.CommonAdapter;
 import com.android.deviceinfo.Model.CommonModel;
 import com.android.deviceinfo.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -36,6 +39,13 @@ public class GeneralActivity extends AppCompatActivity {
         //-----Initializations----//
         recyclerView = findViewById(R.id.general_rv);
         recyclerView.setHasFixedSize(true);
+
+        //----ADD VIEW----//
+        MobileAds.initialize(this,"ca-app-pub-3385204674971318~5484098769");
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
 
         //--Getting Values--//
         //Uptime

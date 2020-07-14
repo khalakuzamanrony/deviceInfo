@@ -5,6 +5,7 @@
 <androidx.appcompat.widget.Toolbar
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
     android:id="@+id/my_toolbar"
     />
 </com.google.android.material.appbar.AppBarLayout>

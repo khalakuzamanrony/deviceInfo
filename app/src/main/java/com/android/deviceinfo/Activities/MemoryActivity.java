@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.deviceinfo.Adapter.CommonAdapter;
 import com.android.deviceinfo.Model.CommonModel;
 import com.android.deviceinfo.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.io.File;
 import java.text.NumberFormat;
@@ -32,6 +35,13 @@ public class MemoryActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Memory");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //----ADD VIEW----//
+        MobileAds.initialize(this, "ca-app-pub-3385204674971318~5484098769");
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
 
         //-----Initializations----//
         recyclerView = findViewById(R.id.deviceid_rv);
@@ -66,23 +76,12 @@ public class MemoryActivity extends AppCompatActivity {
         float size = stat.getBlockSizeLong();
         float totalBlocks = stat.getBlockCountLong();
         float avail_blocks = stat.getAvailableBlocksLong();
-        float total_rom = (totalBlocks * size) / (1024 * 1024);//value in GB
-        float avail_rom = (avail_blocks * size) / (1024 * 1024);//value in GB
-        float used_rom = total_rom - avail_rom;//value in MB
+        float total_rom = (totalBlocks * size) / (1024 * 1024 * 1024);//value in GB
+        float avail_rom = (avail_blocks * size) / (1024 * 1024 * 1024);//value in GB
+        float used_rom = total_rom - avail_rom;//value in GB
 
         float avail_rom_p = (avail_rom / total_rom) * 100;//value in MB
         float used_rom_p = (used_rom / total_rom) * 100;//value in MB
-
-
-        NumberFormat numberFormat_avail_romp = NumberFormat.getNumberInstance();
-        numberFormat_avail_romp.setMaximumFractionDigits(1);
-        numberFormat_avail_romp.setMinimumFractionDigits(1);
-        String avail_rom_pe = numberFormatPercent.format(avail_rom_p);
-
-        NumberFormat numberFormat_used_romp = NumberFormat.getNumberInstance();
-        numberFormat_used_romp.setMaximumFractionDigits(1);
-        numberFormat_used_romp.setMinimumFractionDigits(1);
-        String used_rom_pe = numberFormatPercent.format(used_rom_p);
 
 
         //------Getting HEAP info----//
@@ -91,25 +90,33 @@ public class MemoryActivity extends AppCompatActivity {
 
 
         //-----Sending Values to Adapter----///
-        arrayList.add(new CommonModel("Total RAM", total_ram + " MB"));
-        arrayList.add(new CommonModel("Available RAM", avail_ram + " MB (" + avail_ram_pe + "%)"));
-        arrayList.add(new CommonModel("Used RAM", used_ram + " MB  (" + used_ram_pe + "%)"));
-        arrayList.add(new CommonModel("", ""));
+        arrayList.add(new CommonModel("Total RAM", getNumberPre(total_ram, 2, 1) + " MB"));
+        arrayList.add(new CommonModel("Available RAM", getNumberPre(avail_ram, 2, 1) + " MB (" + getNumberPre(avail_ram_p, 1, 1) + "%)"));
+        arrayList.add(new CommonModel("Used RAM", getNumberPre(used_ram, 2, 1) + " MB  (" + getNumberPre(used_ram_p, 1, 1) + "%)"));
         arrayList.add(new CommonModel("", ""));
         arrayList.add(new CommonModel("", ""));
 
-        arrayList.add(new CommonModel("Total ROM", total_rom + " MB"));
-        arrayList.add(new CommonModel("Available ROM", avail_rom + " MB (" + avail_rom_pe + "%)"));
-        arrayList.add(new CommonModel("Used ROM", used_rom + " MB  (" + used_rom_pe + "%)"));
+
+        arrayList.add(new CommonModel("Total ROM", getNumberPre(total_rom, 2, 1) + " GB"));
+        arrayList.add(new CommonModel("Available ROM", getNumberPre(avail_rom, 2, 1) + " GB (" + getNumberPre(avail_rom_p, 1, 1) + "%)"));
+        arrayList.add(new CommonModel("Used ROM", getNumberPre(used_rom, 2, 1) + " GB  (" + getNumberPre(used_rom_p, 1, 1) + "%)"));
         arrayList.add(new CommonModel("", ""));
         arrayList.add(new CommonModel("", ""));
-        arrayList.add(new CommonModel("", ""));
+
 
         arrayList.add(new CommonModel("Heap Memory", max + " MB "));
 
 
         adapter = new CommonAdapter(getApplicationContext(), arrayList);
         recyclerView.setAdapter(adapter);
+    }
+
+    private String getNumberPre(float total_rom, int max, int min) {
+        NumberFormat numberFormat = NumberFormat.getNumberInstance();
+        numberFormat.setMaximumFractionDigits(max);
+        numberFormat.setMinimumFractionDigits(min);
+        String formattedNum = numberFormat.format(total_rom);
+        return formattedNum;
     }
 
 }

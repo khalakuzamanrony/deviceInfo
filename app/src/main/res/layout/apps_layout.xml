@@ -20,7 +20,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:padding="3dp"
-            app:srcCompat="@drawable/two" />
+            app:srcCompat="@drawable/q" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,23 +35,27 @@
                 android:layout_height="wrap_content"
                 android:text="Name"
                 android:textAlignment="textStart"
-                android:textSize="17sp" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="19sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/package_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Package Name"
-                android:textAlignment="textStart"
-                android:textSize="17sp" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="17sp"
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/version"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="1.0.1"
-                android:textAlignment="textStart"
-                android:textSize="17sp" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="17sp"
+                android:textStyle="italic" />
         </LinearLayout>
     </LinearLayout>
 

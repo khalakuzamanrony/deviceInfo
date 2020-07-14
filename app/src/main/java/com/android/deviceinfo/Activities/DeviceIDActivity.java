@@ -22,6 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.deviceinfo.Adapter.CommonAdapter;
 import com.android.deviceinfo.Model.CommonModel;
 import com.android.deviceinfo.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -51,6 +54,14 @@ public class DeviceIDActivity extends AppCompatActivity {
         //-----Initializations----//
         recyclerView = findViewById(R.id.deviceid_rv);
         recyclerView.setHasFixedSize(true);
+
+
+        //----ADD VIEW----//
+        MobileAds.initialize(this,"ca-app-pub-3385204674971318~5484098769");
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
 
         //----Device id--//
         String deviceid = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);

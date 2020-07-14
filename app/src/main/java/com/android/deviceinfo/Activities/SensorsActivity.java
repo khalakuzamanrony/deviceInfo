@@ -3,8 +3,11 @@ package com.android.deviceinfo.Activities;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,16 +15,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.deviceinfo.Adapter.CommonAdapter;
 import com.android.deviceinfo.Model.CommonModel;
 import com.android.deviceinfo.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SensorsActivity extends AppCompatActivity {
     private Toolbar toolbar;
+    private TextView t_sensors;
     private RecyclerView recyclerView;
     private ArrayList<CommonModel> arrayList = new ArrayList<>();
     private CommonAdapter adapter;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +42,16 @@ public class SensorsActivity extends AppCompatActivity {
 
         //-----Initializations----//
         recyclerView = findViewById(R.id.deviceid_rv);
+        t_sensors = findViewById(R.id.total_sensors);
         recyclerView.setHasFixedSize(true);
+
+
+        //----ADD VIEW----//
+        MobileAds.initialize(this, "ca-app-pub-3385204674971318~5484098769");
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
 
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ALL);
@@ -50,11 +67,12 @@ public class SensorsActivity extends AppCompatActivity {
                             "Resolution : " + pos.getResolution() + "\n" +
                             "Power : " + pos.getPower() + " mAh\n" +
                             "Max Power Range : " + pos.getMaximumRange() + "\n" +
-                            "Max Delay : " + pos.getMaxDelay()+ "\n" +
-                            "Min Delay : " + pos.getMinDelay()+ "\n"
+                            "Max Delay : " + pos.getMaxDelay() + "\n" +
+                            "Min Delay : " + pos.getMinDelay() + "\n"
             ));
         }
         adapter = new CommonAdapter(getApplicationContext(), arrayList);
+        t_sensors.setText("Total Sensors: " + arrayList.size());
         recyclerView.setAdapter(adapter);
     }
 

@@ -23,6 +23,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.deviceinfo.Interface.ItemClickListener;
 import com.android.deviceinfo.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +49,14 @@ public class UserAppsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.total_apps_rv);
         recyclerView.setHasFixedSize(true);
         totalAppCount = findViewById(R.id.total_u_apps);
+
+
+        //----ADD VIEW----//
+        MobileAds.initialize(this,"ca-app-pub-3385204674971318~5484098769");
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
 
         getInstalledApps();
         uAppsAdapter = new UAppsAdapter(arrayList, getApplicationContext());
