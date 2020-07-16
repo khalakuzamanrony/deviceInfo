@@ -58,16 +58,6 @@ public class MemoryActivity extends AppCompatActivity {
         float avail_ram_p = avail_ram / total_ram * 100;
         float used_ram_p = used_ram / total_ram * 100;
 
-        NumberFormat numberFormatPercent = NumberFormat.getNumberInstance();
-        numberFormatPercent.setMaximumFractionDigits(1);
-        numberFormatPercent.setMinimumFractionDigits(1);
-        String avail_ram_pe = numberFormatPercent.format(avail_ram_p);
-
-        NumberFormat numberFormatUPercent = NumberFormat.getNumberInstance();
-        numberFormatUPercent.setMaximumFractionDigits(1);
-        numberFormatUPercent.setMinimumFractionDigits(1);
-        String used_ram_pe = numberFormatPercent.format(used_ram_p);
-
 
         //------Getting ROM info----//
 

@@ -29,53 +29,6 @@ public class SensorsActivity extends AppCompatActivity {
     private ArrayList<CommonModel> arrayList = new ArrayList<>();
     private CommonAdapter adapter;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sensors);
-
-        toolbar = findViewById(R.id.my_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Sensors");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //-----Initializations----//
-        recyclerView = findViewById(R.id.deviceid_rv);
-        t_sensors = findViewById(R.id.total_sensors);
-        recyclerView.setHasFixedSize(true);
-
-
-        //----ADD VIEW----//
-        MobileAds.initialize(this, "ca-app-pub-3385204674971318~5484098769");
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-
-        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ALL);
-
-
-        //-----Sending Values to Adapter----///
-        for (int i = 0; i < sensors.size(); i++) {
-            Sensor pos = sensors.get(i);
-            arrayList.add(new CommonModel(pos.getName(),
-                    "Type : " + SensortypeToString(pos.getType()) + "\n" +
-                            "Vendor : " + pos.getVendor() + "\n" +
-                            "Version : " + pos.getVersion() + "\n" +
-                            "Resolution : " + pos.getResolution() + "\n" +
-                            "Power : " + pos.getPower() + " mAh\n" +
-                            "Max Power Range : " + pos.getMaximumRange() + "\n" +
-                            "Max Delay : " + pos.getMaxDelay() + "\n" +
-                            "Min Delay : " + pos.getMinDelay() + "\n"
-            ));
-        }
-        adapter = new CommonAdapter(getApplicationContext(), arrayList);
-        t_sensors.setText("Total Sensors: " + arrayList.size());
-        recyclerView.setAdapter(adapter);
-    }
-
     public static String SensortypeToString(int sensorType) {
         switch (sensorType) {
             case Sensor.TYPE_ACCELEROMETER:
@@ -126,5 +79,52 @@ public class SensorsActivity extends AppCompatActivity {
                 return "Unknown";
 
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sensors);
+
+        toolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Sensors");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //-----Initializations----//
+        recyclerView = findViewById(R.id.deviceid_rv);
+        t_sensors = findViewById(R.id.total_sensors);
+        recyclerView.setHasFixedSize(true);
+
+
+        //----ADD VIEW----//
+        MobileAds.initialize(this, "ca-app-pub-3385204674971318~5484098769");
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
+        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ALL);
+
+
+        //-----Sending Values to Adapter----///
+        for (int i = 0; i < sensors.size(); i++) {
+            Sensor pos = sensors.get(i);
+            arrayList.add(new CommonModel(pos.getName(),
+                    "Type : " + SensortypeToString(pos.getType()) + "\n" +
+                            "Vendor : " + pos.getVendor() + "\n" +
+                            "Version : " + pos.getVersion() + "\n" +
+                            "Resolution : " + pos.getResolution() + "\n" +
+                            "Power : " + pos.getPower() + " mAh\n" +
+                            "Max Power Range : " + pos.getMaximumRange() + "\n" +
+                            "Max Delay : " + pos.getMaxDelay() + "\n" +
+                            "Min Delay : " + pos.getMinDelay() + "\n"
+            ));
+        }
+        adapter = new CommonAdapter(getApplicationContext(), arrayList);
+        t_sensors.setText("Total Sensors: " + arrayList.size());
+        recyclerView.setAdapter(adapter);
     }
 }

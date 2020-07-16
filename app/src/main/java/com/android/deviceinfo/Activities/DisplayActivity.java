@@ -1,16 +1,14 @@
 package com.android.deviceinfo.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
-import android.graphics.Point;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.deviceinfo.Adapter.CommonAdapter;
 import com.android.deviceinfo.Model.CommonModel;
@@ -28,6 +26,7 @@ public class DisplayActivity extends AppCompatActivity {
     private ArrayList<CommonModel> arrayList = new ArrayList<>();
     private CommonAdapter adapter;
     private String ori;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,54 +41,51 @@ public class DisplayActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         //----ADD VIEW----//
-        MobileAds.initialize(this,"ca-app-pub-3385204674971318~5484098769");
+        MobileAds.initialize(this, "ca-app-pub-3385204674971318~5484098769");
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
 
         //-----Display ----//
-        DisplayMetrics displayMetrics=getApplicationContext().getResources().getDisplayMetrics();
+        DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
         //getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int w=displayMetrics.widthPixels;
-        int h=displayMetrics.heightPixels;
-        String resolution=String.valueOf(w)+"x "+String.valueOf(h)+" pixels";
+        int w = displayMetrics.widthPixels;
+        int h = displayMetrics.heightPixels;
+        String resolution = String.valueOf(w) + "x " + String.valueOf(h) + " pixels";
 
 
         //-----Density----//
-        String density=displayMetrics.densityDpi+" dpi";
-        float d=displayMetrics.densityDpi;
-
+        String density = displayMetrics.densityDpi + " dpi";
+        float d = displayMetrics.densityDpi;
 
 
         //-----Physical Size ----//
-        double x= Math.pow(displayMetrics.widthPixels/displayMetrics.xdpi,2);
-        double y= Math.pow(displayMetrics.heightPixels/displayMetrics.ydpi,2);
-        double screenInch=Math.sqrt(x+y);
-        NumberFormat numberFormat=NumberFormat.getNumberInstance();
+        double x = Math.pow(displayMetrics.widthPixels / displayMetrics.xdpi, 2);
+        double y = Math.pow(displayMetrics.heightPixels / displayMetrics.ydpi, 2);
+        double screenInch = Math.sqrt(x + y);
+        NumberFormat numberFormat = NumberFormat.getNumberInstance();
         numberFormat.setMinimumFractionDigits(2);
         numberFormat.setMaximumFractionDigits(2);
-        String inch=numberFormat.format(screenInch)+" Inch";
+        String inch = numberFormat.format(screenInch) + " Inch";
         //String s=String.format("%.2f",screenInch+"inch");
 
 
-
-
-         //-----Refresh Rate ----//
-        Display display=((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        float rrate=display.getRefreshRate();
-        NumberFormat numberFormat2=NumberFormat.getNumberInstance();
+        //-----Refresh Rate ----//
+        Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        float rrate = display.getRefreshRate();
+        NumberFormat numberFormat2 = NumberFormat.getNumberInstance();
         numberFormat2.setMinimumFractionDigits(2);
         numberFormat2.setMaximumFractionDigits(2);
-        String refreshRate=numberFormat2.format(rrate)+" Hz";
+        String refreshRate = numberFormat2.format(rrate) + " Hz";
 
 
         //-----Orientation ----//
-        int orientation= this.getResources().getConfiguration().orientation;
-        if (orientation==1){
-             ori="Vertical";
-        }else {
-             ori="Horizontal";
+        int orientation = this.getResources().getConfiguration().orientation;
+        if (orientation == 1) {
+            ori = "Vertical";
+        } else {
+            ori = "Horizontal";
         }
 
         //-----Sending Values to Adapter----///
@@ -99,7 +95,6 @@ public class DisplayActivity extends AppCompatActivity {
         arrayList.add(new CommonModel("Logical Size", ""));
         arrayList.add(new CommonModel("Refresh Rate", refreshRate));
         arrayList.add(new CommonModel("Orientation", ori));
-
 
 
         adapter = new CommonAdapter(getApplicationContext(), arrayList);

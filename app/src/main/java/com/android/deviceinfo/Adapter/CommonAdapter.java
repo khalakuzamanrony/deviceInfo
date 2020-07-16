@@ -14,9 +14,9 @@ import com.android.deviceinfo.R;
 
 import java.util.ArrayList;
 
-public  class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.ViewHolder> {
-private Context context;
-private ArrayList<CommonModel> arrayList;
+public class CommonAdapter extends RecyclerView.Adapter<CommonAdapter.ViewHolder> {
+    private Context context;
+    private ArrayList<CommonModel> arrayList;
 
     public CommonAdapter(Context context, ArrayList<CommonModel> arrayList) {
         this.context = context;
@@ -32,7 +32,7 @@ private ArrayList<CommonModel> arrayList;
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        CommonModel commonModel=arrayList.get(position);
+        CommonModel commonModel = arrayList.get(position);
         holder.title.setText(commonModel.getTitle());
         holder.description.setText(commonModel.getDesc());
 
@@ -44,11 +44,12 @@ private ArrayList<CommonModel> arrayList;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView title,description;
+        private TextView title, description;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            title=itemView.findViewById(R.id.common_title);
-            description=itemView.findViewById(R.id.common_description);
+            title = itemView.findViewById(R.id.common_title);
+            description = itemView.findViewById(R.id.common_description);
         }
     }
 }

@@ -52,14 +52,14 @@ public class SystemAppsActivity extends AppCompatActivity {
 
 
         //----ADD VIEW----//
-        MobileAds.initialize(this,"ca-app-pub-3385204674971318~5484098769");
+        MobileAds.initialize(this, "ca-app-pub-3385204674971318~5484098769");
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
 
         getInstalledApps();
-       sAppsAdapter=new SAppsAdapter(getApplicationContext(),arrayList);
+        sAppsAdapter = new SAppsAdapter(getApplicationContext(), arrayList);
         recyclerView.setAdapter(sAppsAdapter);
 
     }
@@ -131,9 +131,10 @@ public class SystemAppsActivity extends AppCompatActivity {
             this.icon = icon;
         }
     }
-    public  class SAppsAdapter extends RecyclerView.Adapter<SAppsAdapter.ViewHolder>{
-private Context context;
-private ArrayList<SApps> arrayList2;
+
+    public class SAppsAdapter extends RecyclerView.Adapter<SAppsAdapter.ViewHolder> {
+        private Context context;
+        private ArrayList<SApps> arrayList2;
 
         public SAppsAdapter(Context context, ArrayList<SApps> arrayList2) {
             this.context = context;
@@ -170,7 +171,7 @@ private ArrayList<SApps> arrayList2;
                                 }
                             } else if (which == 1) {
                                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                                intent.setData(Uri.parse("package: "+apps.getPackagename()));
+                                intent.setData(Uri.parse("package: " + apps.getPackagename()));
                                 startActivity(intent);
                             }
                         }
@@ -186,9 +187,10 @@ private ArrayList<SApps> arrayList2;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+            ItemClickListener itemClickListener;
             private ImageView icon;
             private TextView name, packageName, version;
-            ItemClickListener itemClickListener;
+
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 name = itemView.findViewById(R.id.name);
@@ -197,6 +199,7 @@ private ArrayList<SApps> arrayList2;
                 icon = itemView.findViewById(R.id.icon);
                 itemView.setOnClickListener(this);
             }
+
             @Override
             public void onClick(View v) {
                 this.itemClickListener.OnclickItem(v, getLayoutPosition());

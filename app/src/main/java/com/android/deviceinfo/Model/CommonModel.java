@@ -1,7 +1,7 @@
 package com.android.deviceinfo.Model;
 
 public class CommonModel {
-    String title,desc;
+    String title, desc;
 
     public CommonModel() {
     }

@@ -52,7 +52,7 @@ public class UserAppsActivity extends AppCompatActivity {
 
 
         //----ADD VIEW----//
-        MobileAds.initialize(this,"ca-app-pub-3385204674971318~5484098769");
+        MobileAds.initialize(this, "ca-app-pub-3385204674971318~5484098769");
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
@@ -61,7 +61,6 @@ public class UserAppsActivity extends AppCompatActivity {
         getInstalledApps();
         uAppsAdapter = new UAppsAdapter(arrayList, getApplicationContext());
         recyclerView.setAdapter(uAppsAdapter);
-
 
 
     }
@@ -86,6 +85,7 @@ public class UserAppsActivity extends AppCompatActivity {
     private boolean isSytemApp(PackageInfo p) {
         return (p.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
     }
+
     public class UApps {
         private String name, packagename, version;
         private Drawable icon;
@@ -132,6 +132,7 @@ public class UserAppsActivity extends AppCompatActivity {
             this.icon = icon;
         }
     }
+
     public class UAppsAdapter extends RecyclerView.Adapter<UAppsAdapter.ViewHolder> {
         private ArrayList<UserAppsActivity.UApps> arrayList2;
         private Context context;
@@ -140,7 +141,6 @@ public class UserAppsActivity extends AppCompatActivity {
             this.arrayList2 = arrayList2;
             this.context = context;
         }
-
 
 
         @NonNull
@@ -172,14 +172,14 @@ public class UserAppsActivity extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                             } else if (which == 1) {
-                                String p=arrayList2.get(position).getPackagename();
+                                String p = arrayList2.get(position).getPackagename();
                                 Intent intent2 = new Intent(Intent.ACTION_DELETE);
-                                intent2.setData(Uri.parse("package: "+p));
+                                intent2.setData(Uri.parse("package: " + p));
                                 startActivity(intent2);
                                 // recreate();
                             } else {
                                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                                intent.setData(Uri.parse("package: "+apps.getPackagename()));
+                                intent.setData(Uri.parse("package: " + apps.getPackagename()));
                                 startActivity(intent);
                             }
                         }
@@ -196,9 +196,9 @@ public class UserAppsActivity extends AppCompatActivity {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+            ItemClickListener itemClickListener;
             private ImageView icon;
             private TextView name, packageName, version;
-            ItemClickListener itemClickListener;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -220,7 +220,6 @@ public class UserAppsActivity extends AppCompatActivity {
             }
         }
     }
-
 
 
 }

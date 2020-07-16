@@ -1,6 +1,5 @@
 package com.android.deviceinfo.Activities;
 
-import android.Manifest;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
@@ -30,7 +29,6 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import java.util.List;
 
 public class DeviceIDActivity extends AppCompatActivity {
@@ -57,7 +55,7 @@ public class DeviceIDActivity extends AppCompatActivity {
 
 
         //----ADD VIEW----//
-        MobileAds.initialize(this,"ca-app-pub-3385204674971318~5484098769");
+        MobileAds.initialize(this, "ca-app-pub-3385204674971318~5484098769");
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
@@ -128,17 +126,17 @@ public class DeviceIDActivity extends AppCompatActivity {
         }
 
         //Bluetooth
-        String bt=android.provider.Settings.Secure.getString(this.getContentResolver(),"bluetooth_address");
+        String bt = android.provider.Settings.Secure.getString(this.getContentResolver(), "bluetooth_address");
 
 
         //-----Sending Values to Adapter----///
         arrayList.add(new CommonModel("Phone Type", ""));
         arrayList.add(new CommonModel("Test Device ID", ""));
         arrayList.add(new CommonModel("Android Device ID", deviceid));
-       // arrayList.add(new CommonModel("IMEI, MEID or ESN", imei));
+        // arrayList.add(new CommonModel("IMEI, MEID or ESN", imei));
         arrayList.add(new CommonModel("Hardware Serial Number", Build.SERIAL));
-       // arrayList.add(new CommonModel("Sim card Serial Number", simSerial));
-       // arrayList.add(new CommonModel("Sim Subscriber ID", simSubsID));
+        // arrayList.add(new CommonModel("Sim card Serial Number", simSerial));
+        // arrayList.add(new CommonModel("Sim Subscriber ID", simSubsID));
         arrayList.add(new CommonModel("IP Address", ipAddress));
         arrayList.add(new CommonModel("WiFi MAC Address", wifiMACAddress));
         arrayList.add(new CommonModel("Bluetooth MAC Address", bt));
@@ -184,9 +182,9 @@ public class DeviceIDActivity extends AppCompatActivity {
     }
 
     private String getMobileIPwifiMAC() {
-        WifiManager wifiManager= (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-        WifiInfo info=wifiManager.getConnectionInfo();
-        int ip=info.getIpAddress();
+        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+        WifiInfo info = wifiManager.getConnectionInfo();
+        int ip = info.getIpAddress();
         return Formatter.formatIpAddress(ip);
 
     }

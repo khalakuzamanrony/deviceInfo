@@ -37,16 +37,14 @@ public class SIMActivity extends AppCompatActivity {
         //-----Initializations----//
         recyclerView = findViewById(R.id.deviceid_rv);
         recyclerView.setHasFixedSize(true);
-        tm= (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         getSimInfo();
 
         //----ADD VIEW----//
-        MobileAds.initialize(this,"ca-app-pub-3385204674971318~5484098769");
+        MobileAds.initialize(this, "ca-app-pub-3385204674971318~5484098769");
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
-
 
 
         adapter = new CommonAdapter(getApplicationContext(), arrayList);
@@ -90,32 +88,31 @@ public class SIMActivity extends AppCompatActivity {
         }
 
         //-----Service Provider---//
-        String service_provider=tm.getSimOperatorName();
-   //-----Mobileoperator name---//
-        String operatorname=tm.getNetworkOperatorName();
+        String service_provider = tm.getSimOperatorName();
+        //-----Mobileoperator name---//
+        String operatorname = tm.getNetworkOperatorName();
         //String simID=tm.getSimSerialNumber();
-       // String imei=tm.getDeviceId();
+        // String imei=tm.getDeviceId();
         //String simSubsId=tm.getSubscriberId();
-        String SoftV=tm.getDeviceSoftwareVersion();
-        String country=tm.getNetworkCountryIso();
-        String mcc=tm.getSimOperator();
-        String vmt=tm.getVoiceMailAlphaTag();
-        boolean roaming =tm.isNetworkRoaming();
+        String SoftV = tm.getDeviceSoftwareVersion();
+        String country = tm.getNetworkCountryIso();
+        String mcc = tm.getSimOperator();
+        String vmt = tm.getVoiceMailAlphaTag();
+        boolean roaming = tm.isNetworkRoaming();
 
 
         //-----Sending Values to Adapter----///
         arrayList.add(new CommonModel("Sim State", simState));
-        arrayList.add(new CommonModel("Service Provider",service_provider ));
-        arrayList.add(new CommonModel("Operator Name ",operatorname ));
+        arrayList.add(new CommonModel("Service Provider", service_provider));
+        arrayList.add(new CommonModel("Operator Name ", operatorname));
         //arrayList.add(new CommonModel("ICCID ", simID));
-       // arrayList.add(new CommonModel("IMEI ", imei));
+        // arrayList.add(new CommonModel("IMEI ", imei));
         //arrayList.add(new CommonModel("IMSI ",simSubsId ));
-        arrayList.add(new CommonModel("Device Software Version ",SoftV ));
-        arrayList.add(new CommonModel("Countery Code ",country ));
-        arrayList.add(new CommonModel("CC + MNC ",mcc ));
+        arrayList.add(new CommonModel("Device Software Version ", SoftV));
+        arrayList.add(new CommonModel("Countery Code ", country));
+        arrayList.add(new CommonModel("CC + MNC ", mcc));
         arrayList.add(new CommonModel("Voicemail ", vmt));
-        arrayList.add(new CommonModel("Roaming ", roaming+""));
-
+        arrayList.add(new CommonModel("Roaming ", roaming + ""));
 
 
     }

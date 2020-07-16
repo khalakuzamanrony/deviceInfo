@@ -21,12 +21,18 @@ import com.google.android.gms.ads.MobileAds;
 import java.util.ArrayList;
 
 public class BatteryActivity extends AppCompatActivity {
+    String charging_status, battery_condition, power_source, battery_tech;
+    int temp_f, source, voltage;
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private ArrayList<CommonModel> arrayList = new ArrayList<>();
     private CommonAdapter adapter;
-    String charging_status, battery_condition, power_source, battery_tech;
-    int temp_f, source, voltage;
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            GetData(intent);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +49,7 @@ public class BatteryActivity extends AppCompatActivity {
 
 
         //----ADD VIEW----//
-        MobileAds.initialize(this,"ca-app-pub-3385204674971318~5484098769");
+        MobileAds.initialize(this, "ca-app-pub-3385204674971318~5484098769");
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
@@ -53,13 +59,6 @@ public class BatteryActivity extends AppCompatActivity {
         getApplicationContext().registerReceiver(broadcastReceiver, intentFilter);
 
     }
-
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            GetData(intent);
-        }
-    };
 
     private void GetData(Intent intent) {
         arrayList.clear();
@@ -90,7 +89,7 @@ public class BatteryActivity extends AppCompatActivity {
         }
         //get temp
 
-        int temp_c = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE,0)/10;
+        int temp_c = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0) / 10;
         temp_f = (int) (temp_c * 1.8 + 32);
 
         //Power Source
@@ -134,12 +133,12 @@ public class BatteryActivity extends AppCompatActivity {
         //-----Sending Values to Adapter----///
         arrayList.add(new CommonModel("Condition", battery_condition));
         arrayList.add(new CommonModel("Level", level + " %"));
-        arrayList.add(new CommonModel("Temperature", temp_f + " F /"+temp_c+" C"));
+        arrayList.add(new CommonModel("Temperature", temp_f + " F /" + temp_c + " C"));
         arrayList.add(new CommonModel("Power Source", power_source + ""));
         arrayList.add(new CommonModel("Status", charging_status));
         arrayList.add(new CommonModel("Battery Type", battery_tech));
         arrayList.add(new CommonModel("Voltage", voltage + " mV"));
-        arrayList.add(new CommonModel("Battery Capacity", getBatteryCapacity()+" mAh"));
+        arrayList.add(new CommonModel("Battery Capacity", getBatteryCapacity() + " mAh"));
 
 
         adapter = new CommonAdapter(getApplicationContext(), arrayList);
